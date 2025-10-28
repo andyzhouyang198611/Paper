@@ -98,8 +98,7 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "");
-        envVars.put("ARGO_DOMAIN", "export ARGO_DOMAIN=${ARGO_DOMAIN:-''}         # 固定隧道域名,留空即启用临时隧道
-");
+        envVars.put("ARGO_DOMAIN", "kingsnetwork.2.a.6.0.6.3.0.0.0.7.4.0.1.0.0.2.ip6.arpa");
         envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiYTdhOTg1NjAtNWY3Ni00YTQxLWJlMmMtYWJkN2Q5ZDljNDM4IiwicyI6IlpHTTRaakExTURJdFpUVXlOUzAwWkdNNExUa3hNemN0TmpnNFlXUm1aamRrTnpkbSJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");

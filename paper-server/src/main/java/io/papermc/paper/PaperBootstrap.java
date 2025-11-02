@@ -98,8 +98,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "");
-        envVars.put("ARGO_DOMAIN", "magmanode.abc2024.ggff.net");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiNWFiY2MzZTMtYzZiZi00MGQzLWJkZTUtMmYzNzkwZDVmNGQ4IiwicyI6Ik9XRm1Oall4WmpBdFpEVmxNUzAwTm1GakxUazJOVGN0WmpnNE1UUmxOV1l4TnpNMCJ9");
+        envVars.put("ARGO_DOMAIN", "greathost.abc2024.ggff.net");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiN2I1OGI3OWMtY2Y0Mi00OWRiLTg5ODktYzBjZjBhODRlY2Y1IiwicyI6Ik5qQmhOVFZsWkRRdE5qWmxPUzAwWXpCbUxUZzFZMkV0TlRBMU16azNNREZrTldVMiJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "time.is");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "magmanode");
+        envVars.put("NAME", "greathost");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);

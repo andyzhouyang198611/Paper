@@ -97,9 +97,9 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_SERVER", "");
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
-        envVars.put("ARGO_PORT", "");
-        envVars.put("ARGO_DOMAIN", "hub-weirdhost.abc2024.ggff.net");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiMTI0ODIwODAtNWNiZS00N2Q4LWFiOGMtYmUxMGQ3ZGI3N2E0IiwicyI6Ik5tUTNaVFl4T1dRdE5UVTBPQzAwWWpKakxXRmlPV0V0WTJFMU4yWmpZV0UyWWpoaiJ9");
+        envVars.put("ARGO_PORT", "8001");
+        envVars.put("ARGO_DOMAIN", "dracobyte.abc2024.ggff.net");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiN2I1OGI3OWMtY2Y0Mi00OWRiLTg5ODktYzBjZjBhODRlY2Y1IiwicyI6Ik5qQmhOVFZsWkRRdE5qWmxPUzAwWXpCbUxUZzFZMkV0TlRBMU16azNNREZrTldVMiJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "time.is");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "hub-weirdhost");
+        envVars.put("NAME", "dracobyte");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);

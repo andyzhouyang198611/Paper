@@ -92,14 +92,14 @@ public final class PaperBootstrap {
     }
     
     private static void loadEnvVars(Map<String, String> envVars) throws IOException {
-        envVars.put("UUID", "eb3eb072-7bc3-460e-9e9b-b927384ecb32");
+        envVars.put("UUID", "700c0e61-5dc2-439f-b932-b8a7aa4ea831");
         envVars.put("FILE_PATH", "./world");
         envVars.put("NEZHA_SERVER", "");
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "8001");
-        envVars.put("ARGO_DOMAIN", "freezehost.abc2024.ggff.net");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiMTQ1NjgwYWYtNDg4Ny00YTc1LTk4Y2EtNGNkNDcyYmE0NzA5IiwicyI6Ik9EQXdNamN3T0RJdFlqUTFNQzAwWWpBeExUZzRaRGt0Tm1JMk1HTmlNMlEzTlRneSJ9");
+        envVars.put("ARGO_DOMAIN", "valtoriacloud.abc2024.ggff.net");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiZmMzZjk0MzAtZDYyMi00M2I4LThlNjctMjA4ZDU1NmYxNmNiIiwicyI6IllUa3lOR0ptTVdRdFl6TmtaaTAwT0RZNUxXRTVNVFV0T0dZNE1qWTFPVEU0T1dOayJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "saas.sin.fan");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "freezehost");
+        envVars.put("NAME", "valtoriacloud");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);

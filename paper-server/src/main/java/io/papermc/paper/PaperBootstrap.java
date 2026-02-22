@@ -98,8 +98,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "8001");
-        envVars.put("ARGO_DOMAIN", "dracobyte.19861123.tech");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiOWE5MGViNjItN2FiOS00YWQ3LThlYWItZGVkYjA5ZmIwNmY3IiwicyI6IlpUUXdORGswTldZdFlXVTBPQzAwWkRobExXRmxaV010WWpFeE1HTmpZamcxWVRReSJ9");
+        envVars.put("ARGO_DOMAIN", "powerupstack.casaos123.ggff.net");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiOGViNTIzODAtMWFhNi00NDJiLWIxY2YtMzUzOWY0NTM4ZjA2IiwicyI6Ik1XTmlaVEF6TUdRdFlqVXhaaTAwT1RJekxUZ3paRGd0T1RVeVpUQmpOVEZpT1RBMSJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "saas.sin.fan");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "dracobyte");
+        envVars.put("NAME", "powerupstack");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);

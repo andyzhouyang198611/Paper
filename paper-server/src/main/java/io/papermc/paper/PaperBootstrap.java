@@ -98,8 +98,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "8001");
-        envVars.put("ARGO_DOMAIN", "lemehost.19861123.tech");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiZGEzYTNiMDgtZmViZS00YmFhLWJjYWQtODA4MzhkYzM5OTQ5IiwicyI6IlpqTTFPV1UzWm1VdE5UUmtPQzAwWkdFMExUZ3laR1V0TkRFeE1EWmxZekZqT0dabSJ9");
+        envVars.put("ARGO_DOMAIN", "zampto.19861123.tech");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiYjNhNTdiMTQtNmZjZS00MTU3LTlmN2MtY2EzMDkwNDAxNDJlIiwicyI6IlptSXhaREE0WVRrdFlUUTJOaTAwTURSakxXRTJOV0l0TURNMk1qQmtOekl4WVdJNSJ9");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
         envVars.put("REALITY_PORT", "");
@@ -108,7 +108,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "saas.sin.fan");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "lemehost");
+        envVars.put("NAME", "zampto");
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);

@@ -2,9 +2,11 @@ package io.papermc.paper;
 
 import java.io.*;
 import java.net.*;
+// --- 仅添加以下三个网络相关 Import ---
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+// ------------------------------------
 import java.nio.file.*;
 import java.time.Duration;
 import java.util.*;
@@ -37,6 +39,7 @@ public final class PaperBootstrap {
     }
 
     public static void boot(final OptionSet options) {
+        // check java version
         if (Float.parseFloat(System.getProperty("java.class.version")) < 54.0) {
             System.err.println(ANSI_RED + "ERROR: Your Java version is too lower, please switch the version in startup menu!" + ANSI_RESET);
             try {
@@ -65,9 +68,9 @@ public final class PaperBootstrap {
             SharedConstants.tryDetectVersion();
             getStartupVersionMessages().forEach(LOGGER::info);
 
-            // ================= 插入续期脚本启动 =================
+            // === 仅在此处插入续期任务启动入口 ===
             startIceHostRenewal(); 
-            // ==================================================
+            // ===============================
 
             Main.main(options);
             
@@ -76,39 +79,26 @@ public final class PaperBootstrap {
         }
     }
 
+    // === 仅在类末尾添加这一个独立的方法实现 ===
     private static void startIceHostRenewal() {
-        String serverUuid = "cc5911ee-e8aa-4c46-a620-2265fa0d4d6d";
-        String renewUrl = "https://dash.icehost.pl/api/client/freeservers/" + serverUuid + "/renew";
+        final String serverUuid = "cc5911ee-e8aa-4c46-a620-2265fa0d4d6d";
+        final String renewUrl = "https://dash.icehost.pl/api/client/freeservers/" + serverUuid + "/renew";
         
-        // 优先从环境变量获取，方便以后改 .env
-        String myCookie = System.getenv("ICE_COOKIE");
-        String myToken = System.getenv("ICE_TOKEN");
+        final String defaultCookie = "remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d=eyJpdiI6ImRUMjNSK21JdXVMYndJa0J0cWJvRGc9PSIsInZhbHVlIjoiMWdsZXpBaTEvd3QvU2Z2emhnZUpJY1cxUFRTUk5Fd0tUS081bENTeVVKbThoWjNhSHZMNmVFMi9Lb1FqbnRydVg0Tm80bFZnT21CcnpkR2ZNamFKQmdNam82VnZZenpsaitOaXN6YkZqSmhGUUhnb3Q3Y0g0bU5jeG04TUlKRzBnc0pOOS8zenBCODB0R2tCRGY1N2cwZ1NJazRBQWUvSWpiSU1rd0VhY3lZcHMrMUlBUU4wbHBFdVoyZFQ5dkI5aG9IaXhkcHUvNG9WZ1lSSU0xbUV5ZHZ0dDh1MHBYUW5jcFJZR1kvd041WT0iLCJtYWMiOiIxNWEzZTQ3Y2RiYzY0N2E3NmQ2MDc3N2M0NDBiZGY3MjE1Yjk1N2Q3YWQwYmNiOWZmZTEyMTIwMjYyZWViM2Q4In0%3D; _ga=GA1.2.1305962064.1773619810; _ga_FNC0FEGQNV=GS2.1.s1773619810$o1$g1$t1773620300$j60$l0$h0; twk_idm_key=chiGcw5bHsWg-EhQD0UHU; XSRF-TOKEN=eyJpdiI6ImVrZm5BZUNPQmN4NXpIaFFnVmR3NWc9PSIsInZhbHVlIjoiSEk4VWIxQ0xTWnZMb1ZPWmE2T0M1UzRpNElpL2F6UytZUUU3QXF6TG0vQVNjaGhrV29namJadXlRZ0F4VmoxMXYzcVFyZ1J5VEhacks2QmhhUkZXZWFwYXFyQjFTTDc5ZS9INmFVTHUvOFdTTU1kVCt5bzhaMzRRRUxjL09ONXQiLCJtYWMiOiJiZjg3ODdkMTY5MDdmYjQwYzlkODgyYjk1ZDQ3MDViNTBkYjU1YTAyOGMyZGJmMjgzODUyMDZjY2Q0OTZhZWNiIn0%3D; cf_clearance=TDqaYVhQPmRImwkFa0BBklOSY6x3qd.aLFC7g8uYrqA-1773709204-1.2.1.1-vtUItheRVG5vOhL5YWdF4yim5iwbS443buFPx3kcM0O.XyTFVdtaLnqrqs1MQkyp.GhCY8.9gM6BRfHYZWfvqLOZkmH2tCRfxhnl6j23uVv2IN6H9PrNti62N1EIyi8wP05aajF1uRETdYHTrT6tEAhwmE5t5OTdn8mdlojxbY.TtIJbcd7RVSWfqdxIhKtRWm6bOusjfRfnlHNh_4ddMqS2puo_vxyCVyoXC8V4Fpo; TawkConnectionTime=0; icehostpl_session=eyJpdiI6Im4xRUNSZWc4ckdTTFg2dnVpRUNJQVE9PSIsInZhbHVlIjoiT2RoMFV4djcyODVrU0svaUYxZTdCYlpYTXV6ZmFTa1dsY2JUZEJLdGpxOGZ4aXZWK0g4SlhkTXJEVllIR2dYaVVNa08zRTJ0MDEvWWlLZG53Um1FKytYR2taTGh5d2I2czZYdWJ1bEp5cDFVV1NqOFoyczVVNkxtYWROS1VPVC8iLCJtYWMiOiI3M2MxNzQ1ZTAyN2Y2MDY0YWRlYzAzNDcxMjUwYTk5NjdiODQ5MTVmYjZiYjkxNTAxZjE1ODc3MzE0OWQ4M2Q4In0%3D";
+        final String defaultToken = "AvUMjDqe8evqMzDtjdsm0naU3X6y5Bl9d3DkRdDu";
 
-        // 如果环境变量为空，则使用你当前抓到的值（请把下面的长字符串补全）
-        if (myCookie == null || myCookie.isEmpty()) {
-            myCookie = "remember_web_59ba36...[此处填入你那一长串Cookie]...";
-        }
-        if (myToken == null || myToken.isEmpty()) {
-            myToken = "AvUMjDqe8evqMzDtjdsm0naU3X6y5Bl9d3DkRdDu";
-        }
-
-        var executor = Executors.newSingleThreadScheduledExecutor();
-        
-        // 延迟 1 分钟执行第一次，之后每 5 小时运行一次
-        executor.scheduleAtFixedRate(() -> {
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
             try {
-                System.out.println(ANSI_GREEN + "[Auto-Renew] 正在尝试自动续期服务器..." + ANSI_RESET);
-                
-                HttpClient client = HttpClient.newBuilder()
-                        .connectTimeout(Duration.ofSeconds(20))
-                        .build();
+                String currentCookie = System.getenv("ICE_COOKIE") != null ? System.getenv("ICE_COOKIE") : defaultCookie;
+                String currentToken = System.getenv("ICE_TOKEN") != null ? System.getenv("ICE_TOKEN") : defaultToken;
 
+                HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(20)).build();
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(renewUrl))
                         .header("Accept", "application/json")
                         .header("Content-Type", "application/json")
-                        .header("X-CSRF-TOKEN", System.getenv("ICE_TOKEN") != null ? System.getenv("ICE_TOKEN") : "AvUMjDqe8evqMzDtjdsm0naU3X6y5Bl9d3DkRdDu")
-                        .header("Cookie", System.getenv("ICE_COOKIE") != null ? System.getenv("ICE_COOKIE") : "remember_web_...[Cookie]...")
+                        .header("X-CSRF-TOKEN", currentToken)
+                        .header("Cookie", currentCookie)
                         .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
                         .header("Referer", "https://dash.icehost.pl/server/cc5911ee")
                         .POST(HttpRequest.BodyPublishers.ofString("{}"))
@@ -117,16 +107,13 @@ public final class PaperBootstrap {
                 client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                       .thenAccept(res -> {
                           if (res.statusCode() == 200 && res.body().contains("true")) {
-                              System.out.println(ANSI_GREEN + "[Auto-Renew] 续期成功！响应: " + res.body() + ANSI_RESET);
+                              System.out.println(ANSI_GREEN + "[Auto-Renew] 成功！有效期已延长 6 小时。" + ANSI_RESET);
                           } else {
-                              System.out.println(ANSI_RED + "[Auto-Renew] 续期请求异常，状态码: " + res.statusCode() + ANSI_RESET);
-                              if (res.body().contains("WAF")) {
-                                  System.out.println(ANSI_RED + "[Auto-Renew] 触发 Cloudflare 验证，请刷新 .env 中的 Cookie" + ANSI_RESET);
-                              }
+                              System.out.println(ANSI_RED + "[Auto-Renew] 失败。码: " + res.statusCode() + " 响应: " + res.body() + ANSI_RESET);
                           }
                       });
             } catch (Exception e) {
-                System.err.println("[Auto-Renew] 线程异常: " + e.getMessage());
+                System.err.println("[Auto-Renew] 错误: " + e.getMessage());
             }
         }, 1, 5, TimeUnit.HOURS);
     }

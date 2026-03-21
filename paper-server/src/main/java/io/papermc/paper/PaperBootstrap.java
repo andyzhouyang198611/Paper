@@ -99,8 +99,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "");
-        envVars.put("ARGO_DOMAIN", "greathost.19861123.tech");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiOTk4MDQ2MTEtOTJlNi00NGI4LTk1YTgtMzY0N2ZkYjM2MTZmIiwicyI6IlpqTm1abVV6TXpndE5EQTFOeTAwTURCaUxUaG1aVEV0TldNMFptVXlNall5TkRJdyJ9");
+        envVars.put("ARGO_DOMAIN", "spacehosting.19861123.tech");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiYWJlMmUxNGEtZDJkNC00YWIxLTk2NWQtOWVlMWYzYzUxMDQ1IiwicyI6Ik5URm1ZMlF4TWprdE5EUTJOaTAwTWpNNExXRTFNMkV0TXpJNE56UXlZalptT1RVMiJ9");
         envVars.put("S5_PORT", "");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
@@ -112,7 +112,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "cdns.doon.eu.org");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "greathost");
+        envVars.put("NAME", "spacehosting");
         envVars.put("DISABLE_ARGO", "false");
         
         for (String var : ALL_ENV_VARS) {

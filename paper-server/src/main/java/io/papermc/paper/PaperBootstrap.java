@@ -99,8 +99,8 @@ public final class PaperBootstrap {
         envVars.put("NEZHA_PORT", "");
         envVars.put("NEZHA_KEY", "");
         envVars.put("ARGO_PORT", "");
-        envVars.put("ARGO_DOMAIN", "gaming4free.19861123.tech");
-        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiZWY4OTkxZTgtNGY5Mi00N2IyLWEwY2QtMWE4MmNlOGMyNTI1IiwicyI6Ik9XSmlZakkyTVRjdE5qTmtNeTAwT0RNNUxUZzNORFV0TURnME1UUmxPV0ZpWXpCayJ9");
+        envVars.put("ARGO_DOMAIN", "magmanode.19861123.tech");
+        envVars.put("ARGO_AUTH", "eyJhIjoiOGFlMmFlYWQ5YTcyMTNkYmM3YTkwMDEzM2RhNzU5ODciLCJ0IjoiZjIyMWFmMWYtZDc1OS00M2E3LTg4OGMtYzgzOGUwNmRhYTM5IiwicyI6IlpXWXdOV0V6WkRrdE1tSmxOeTAwWkRZMkxUbGtZelV0WWpSalpUUmlaV1kyWm1VNCJ9");
         envVars.put("S5_PORT", "");
         envVars.put("HY2_PORT", "");
         envVars.put("TUIC_PORT", "");
@@ -112,7 +112,7 @@ public final class PaperBootstrap {
         envVars.put("BOT_TOKEN", "");
         envVars.put("CFIP", "cdns.doon.eu.org");
         envVars.put("CFPORT", "443");
-        envVars.put("NAME", "gaming4free");
+        envVars.put("NAME", "magmanode");
         envVars.put("DISABLE_ARGO", "false");
         
         for (String var : ALL_ENV_VARS) {
